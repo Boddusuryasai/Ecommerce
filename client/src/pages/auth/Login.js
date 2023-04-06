@@ -9,12 +9,13 @@ import {
   import axios from "axios";
   import toast, { Toaster } from 'react-hot-toast';
 import Layout from "../../components/Layout/Layout";
-   
+import { useAuth } from "../../context/auth";
   export default function Login() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
       });
+      const [auth, setAuth] = useAuth();
       const navigate = useNavigate()
     
       const handleChange = (event) => {
@@ -33,6 +34,12 @@ import Layout from "../../components/Layout/Layout";
               ...formData
             });
             if (res && res.data.success) {
+                setAuth({
+                    ...auth,
+                    user: res.data.user,
+                    token: res.data.token,
+                  });
+                  localStorage.setItem("auth", JSON.stringify(res.data));
               toast.success(res.data && res.data.message);
               navigate("/");
             } else {
