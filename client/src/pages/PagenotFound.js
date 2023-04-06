@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Layout from '../components/Layout/Layout'
 const PagenotFound = () => {
   return (
-    <div>PagenotFound</div>
+    <Layout>PagenotFound</Layout>
   )
 }
 
