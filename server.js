@@ -14,6 +14,6 @@ res.send("server home")
 }
 );
 
-app.listen(process.env.PORT || 8080 , ()=>{
-    console.log("server started running ");
+app.listen(process.env.PORT , ()=>{
+    console.log("server started running "+ process.env.PORT);
 })
