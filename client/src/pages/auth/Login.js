@@ -5,7 +5,7 @@ import {
     Button,
     Typography,
   } from "@material-tailwind/react";
-  import { Link ,useNavigate} from "react-router-dom";
+  import { Link ,useNavigate , useLocation} from "react-router-dom";
   import axios from "axios";
   import toast, { Toaster } from 'react-hot-toast';
 import Layout from "../../components/Layout/Layout";
@@ -17,7 +17,7 @@ import { useAuth } from "../../context/auth";
       });
       const [auth, setAuth] = useAuth();
       const navigate = useNavigate()
-    
+    const location = useLocation()
       const handleChange = (event) => {
         const { name, value, type, checked } = event.target;
         setFormData((prevState) => ({
@@ -41,7 +41,7 @@ import { useAuth } from "../../context/auth";
                   });
                   localStorage.setItem("auth", JSON.stringify(res.data));
               toast.success(res.data && res.data.message);
-              navigate("/");
+              navigate(location.state || "/");
             } else {
               toast.error(res.data.message);
             }
