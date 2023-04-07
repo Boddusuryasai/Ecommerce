@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
-    <div className='py-4 text-white text-center  font-bold bg-blue-700'>
+    <div className='py-4 text-white text-center  font-bold bg-[#2196F3]'>
         <p>All rights reserved by @suryasai</p>
         <ul className="flex flex-col justify-center items-center font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
   <li>

@@ -7,7 +7,7 @@ import {
   } from "@material-tailwind/react";
   import { Link ,useNavigate , useLocation} from "react-router-dom";
   import axios from "axios";
-  import toast, { Toaster } from 'react-hot-toast';
+  import toast from 'react-hot-toast';
 import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
   export default function Login() {
@@ -19,7 +19,7 @@ import { useAuth } from "../../context/auth";
       const navigate = useNavigate()
     const location = useLocation()
       const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+        const { name, value } = event.target;
         setFormData((prevState) => ({
           ...prevState,
           [name]: value,

@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React  from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/auth'
 const Header = () => {
@@ -13,7 +13,7 @@ const Header = () => {
 <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <Link to="/" className="flex items-center">
-      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ShopHunt</span>
+      <span className="self-center text-2xl font-extrabold whitespace-nowrap text-[#2196F3]">ShopHunt</span>
     </Link>
     <button data-collapse-toggle="navbar-dropdown" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
       <span className="sr-only">Open main menu</span>
@@ -36,7 +36,7 @@ const Header = () => {
         (
           <>
           <li>
-          <Link to={`/dashboard/${auth?.user.role==1?"admin":"user"}`} className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Dashboard</Link>
+          <Link to={`/dashboard/${auth?.user.role===1?"admin":"user"}`} className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Dashboard</Link>
         </li>
         <li>
           <Link to="/login" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page"

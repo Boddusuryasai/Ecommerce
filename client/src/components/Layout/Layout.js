@@ -6,7 +6,7 @@ const Layout = (props) => {
   return (
     <div>
         <Header/>
-        <main className='min-h-[75vh]'>
+        <main className='min-h-[75vh] '>
            <Toaster/>
         {props.children}
         </main>
