@@ -38,6 +38,7 @@ import { useAuth } from "../../context/auth";
                     ...auth,
                     user: res.data.user,
                     token: res.data.token,
+                    role:res.data.role
                   });
                   localStorage.setItem("auth", JSON.stringify(res.data));
               toast.success(res.data && res.data.message);

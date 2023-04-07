@@ -8,6 +8,8 @@ import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoute from "./components/Layout/Routes/PrivateRoute";
+import AdminRoute from "./components/Layout/Routes/AdminRoute"
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
     <Route path="/register" element={<Register/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/dashboard" element={<PrivateRoute/>}>
-    <Route path="" element={<Dashboard/>}/>
-  
+      <Route path="user" element={<Dashboard/>}/>
+    </Route>
+    <Route path="/dashboard" element={<AdminRoute/>}>
+          <Route path="admin" element={<AdminDashboard/>} />
     </Route>
    
     <Route path="/pagenotfound" element={<PagenotFound/>}/>
