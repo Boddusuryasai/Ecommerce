@@ -9,7 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Layout from "../../components/Layout/Layout";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
   import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {

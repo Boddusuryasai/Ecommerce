@@ -4,7 +4,7 @@ import Footer from './Footer'
 import toast, { Toaster } from 'react-hot-toast';
 const Layout = (props) => {
   return (
-    <div>
+    <div className="container mx-auto" >
         <Header/>
         <main className='min-h-[75vh] '>
            <Toaster/>
