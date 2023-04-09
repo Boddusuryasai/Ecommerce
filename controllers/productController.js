@@ -22,7 +22,7 @@ export const createProductController = async (req, res) => {
       case photo && photo.size > 3000000:
         return res
           .status(500)
-          .send({ error: "photo is Required and should be less then 1mb" });
+          .send({ error: "photo is Required and should be less then 3mb" });
     }
 
     const products = new productModel({ ...req.fields, slug: slugify(name) });
@@ -173,6 +173,72 @@ export const updateProductController = async (req, res) => {
       success: false,
       error,
       message: "Error in Updating product",
+    });
+  }
+};
+// filters
+export const productFiltersController = async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+   
+    let args = {};
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) args.price = { $gte: Number(radio[0]), $lte: Number(radio[1]) };
+    const products = await productModel.find(args);
+  
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error WHile Filtering Products",
+      error,
+    });
+  }
+};
+
+// product count
+export const productCountController = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      message: "Error in product count",
+      error,
+      success: false,
+    });
+  }
+};
+
+// product list base on page
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 6;
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error in per page ctrl",
+      error,
     });
   }
 };
