@@ -3,6 +3,7 @@ import Layout from "./../components/Layout/Layout";
 import { Checkbox, Radio } from "@material-tailwind/react";
 import axios from "axios";
 import { Prices } from "../components/Prices";
+import { Link } from "react-router-dom";
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -165,9 +166,11 @@ const HomePage = () => {
                     {p.description.substring(0, 30)}...
                   </p>
                   <p className="card-text font-bold text-lg">$ {p.price}</p>
+                  <Link to={`/product/${p.slug}`}>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-2 rounded-full mt-2">
                     More Details
                   </button>
+                  </Link>
                   <button className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-2 rounded-full mt-2 ml-4">
                     ADD TO CART
                   </button>

@@ -18,11 +18,13 @@ import Profile from "./pages/user/Profile";
 import Products from "./pages/admin/Products";
 import UpdateProduct from "./pages/admin/UpdateProduct";
 import Search from "./pages/Search";
+import ProductDetails from "./pages/admin/ProductDetails";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/product/:slug" element={<ProductDetails/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/policy" element={<Policy />} />
