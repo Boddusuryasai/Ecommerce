@@ -1,6 +1,7 @@
 import React  from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../context/auth'
+import SearchInput from '../Form/SearchInput';
 const Header = () => {
     const [auth , setAuth] = useAuth();
 
@@ -21,6 +22,7 @@ const Header = () => {
     </button>
     <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
       <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+      <SearchInput/>
         <li>
           <NavLink to="/" className="block py-2 pl-3 pr-4 text-blue-400 font-semibold" aria-current="page">Home</NavLink>
         </li>
