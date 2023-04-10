@@ -1,9 +1,11 @@
 import express from "express";
 import {
+  checkout,
   createProductController,
   deleteProductController,
   getProductController,
   getSingleProductController,
+  paymentVerification,
   productCategoryController,
   productCountController,
   productFiltersController,
@@ -63,5 +65,12 @@ router.get("/related-product/:pid/:cid", realtedProductController);
 
 //category wise product
 router.get("/product-category/:slug", productCategoryController);
+
+//checkout
+
+router.post("/checkout" ,requireSignIn,checkout)
+
+// payment verification
+router.post("/paymentverification/:order_id" ,paymentVerification)
 
 export default router;

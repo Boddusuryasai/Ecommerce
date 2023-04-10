@@ -39,6 +39,43 @@ const CartPage = () => {
             console.log(error);
         }
     };
+    const checkoutHandler = async () => {
+
+       try {
+        const { data: { key } } = await axios.get("/api/v1/getkey")
+   
+        const { data: { order } } = await axios.post("/api/v1/product/checkout", {
+            cart
+        })
+        var options = {
+            "key": key, // Enter the Key ID generated from the Dashboard
+            "amount": order.payment.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Surya Sai",
+            "description": "Test Transaction",
+            "image": "https://res.cloudinary.com/dybiiddob/image/upload/v1679133176/dmu60twd28ljdwb3szu7.jpg",
+            "order_id": order.payment.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "callback_url": `http://localhost:4000/api/v1/product/paymentverification/${order._id}`,
+            "prefill": {
+                "name": auth?.user?.name,
+                "email": auth?.user?.email,
+                "contact": auth?.user?.phone
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        const razor = new window.Razorpay(options);
+        razor.open()
+        
+       } catch (error) {
+         console.log(error);
+       }
+    }
+
     return (
         <Layout>
             <div className="mt-8 mx-auto max-w-2xl">
@@ -89,7 +126,7 @@ const CartPage = () => {
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
                         {auth?.token ?<Button
-                          href="#"
+                          onClick={checkoutHandler}
                           className="flex items-center justify-center rounded-md border border-transparent bg-blue-400 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout

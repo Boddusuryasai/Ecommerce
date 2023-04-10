@@ -1,7 +1,16 @@
 import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
+import orderModel from "../models/orderModel.js";
 import fs from "fs";
 import slugify from "slugify";
+import Razorpay from "razorpay"
+import dotenv from "dotenv"
+import crypto from "crypto"
+dotenv.config()
+const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_API_KEY,
+  key_secret: process.env.RAZORPAY_API_SECRET,
+});
 
 export const createProductController = async (req, res) => {
   try {
@@ -308,4 +317,71 @@ export const productCategoryController = async (req, res) => {
       message: "Error While Getting products",
     });
   }
+};
+//checkkout controller razorpay
+export const checkout =async (req,res)=>{
+  const {  cart } = req.body;
+ 
+    let total = 0;
+    // Fetch the product details from the database and check if the price matches
+  for (const item of cart) {
+    const product = await productModel.findById(item._id);
+    if (product.price !== item.price) {
+      return res.status(400).send({ error: "Product price does not match" });
+    }
+    total += item.price;
+  }
+   
+   
+  var options = {
+    amount: Number(total *100),  // amount in the smallest currency unit
+    currency: "INR",
+    receipt: "order_rcptid_11"
+  };
+  console.log(options);
+  instance.orders.create(options,async function(err, result) {
+    const order = await new orderModel({
+      products: cart,
+      payment: result,
+      buyer: req.user._id,
+    }).save();
+    console.log(order.payment)
+    res.status(200).send({success:true,order})
+  });
+ 
+}
+
+export const paymentVerification = async (req, res) => {
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+    req.body
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
+    .update(body.toString())
+    .digest("hex");
+
+  const isAuthentic = expectedSignature === razorpay_signature;
+  if (isAuthentic) {
+    const order = await orderModel.findOneAndUpdate(
+      { _id: req.params.order_id },
+      { $set: { "payment.status": "completed" } },
+      { new: true }
+    );
+    if (!order) {
+      return res.status(500).send("Error updating payment status");
+    }
+    res.redirect(
+      `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
+    );
+
+  } else {
+    res.status(500).send("error in payment");
+  }
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({error})
+  }
+  
 };

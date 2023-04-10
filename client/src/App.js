@@ -21,6 +21,7 @@ import Search from "./pages/Search";
 import ProductDetails from "./pages/admin/ProductDetails";
 import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
+import PaymentSucces from "./pages/PaymentSucces";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/product/:slug" element={<ProductDetails/>} />
       <Route path="/category/:slug" element={<CategoryPage/>} />
       <Route path="/cart" element={<CartPage/>} />
+      <Route path="/paymentsuccess" element={<PaymentSucces/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/policy" element={<Policy />} />
