@@ -2,9 +2,18 @@ import React  from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../context/auth'
 import SearchInput from '../Form/SearchInput';
+import { Link } from 'react-router-dom';
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
+import useCategory from '../hooks/useCategory';
 const Header = () => {
     const [auth , setAuth] = useAuth();
-
+    const category = useCategory()
     const handleLogout =()=>{
         setAuth({...auth ,user:null,token:null})
         localStorage.removeItem("auth")
@@ -27,6 +36,20 @@ const Header = () => {
         <li>
           <NavLink to="/" className="block py-2 pl-3 pr-4 text-blue-400 font-semibold" aria-current="page">Home</NavLink>
         </li>
+        <Menu>
+      <MenuHandler>
+        <div className=' text-blue-400 font-semibold py-2 pl-3 pr-4 cursor-pointer'>Categories</div>
+      </MenuHandler>
+      <MenuList>
+        {category?.map((c)=>(
+          <Link to={`/category/${c.slug}`} key={c._id}>
+              <MenuItem >{c.name}</MenuItem>
+          </Link>
+        ))}
+       
+       
+      </MenuList>
+    </Menu>
         {!auth.user ?(
             <>
         <li>

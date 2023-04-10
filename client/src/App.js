@@ -19,12 +19,14 @@ import Products from "./pages/admin/Products";
 import UpdateProduct from "./pages/admin/UpdateProduct";
 import Search from "./pages/Search";
 import ProductDetails from "./pages/admin/ProductDetails";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/product/:slug" element={<ProductDetails/>} />
+      <Route path="/category/:slug" element={<CategoryPage/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/policy" element={<Policy />} />

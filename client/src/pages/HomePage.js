@@ -153,6 +153,7 @@ const HomePage = () => {
         <div className="w-full md:w-4/5">
           <div className="flex flex-wrap justify-center">
             {products?.map((p) => (
+               <Link to={`/product/${p.slug}`} key={p._id}>
               <div className="card m-2 p-2 border-2 rounded-md shadow-lg" style={{ width: "18rem" }}
               key={p._id}>
                 <img
@@ -166,16 +167,15 @@ const HomePage = () => {
                     {p.description.substring(0, 30)}...
                   </p>
                   <p className="card-text font-bold text-lg">$ {p.price}</p>
-                  <Link to={`/product/${p.slug}`}>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-2 rounded-full mt-2">
-                    More Details
-                  </button>
-                  </Link>
-                  <button className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-2 rounded-full mt-2 ml-4">
+                  
+                  <div className="text-center">
+                  <button className="bg-gray-500 hover:bg-gray-700 text-white  py-1 rounded-md text-sm px-2 mt-2">
                     ADD TO CART
                   </button>
+                  </div>
                 </div>
               </div>
+              </Link>
             ))}
           </div>
           { !(checked.length || radio.length) &&
