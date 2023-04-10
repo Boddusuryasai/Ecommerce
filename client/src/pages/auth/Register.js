@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Layout from "../../components/Layout/Layout";
 import toast from 'react-hot-toast';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
   const [formData, setFormData] = useState({

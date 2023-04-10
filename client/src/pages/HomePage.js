@@ -4,7 +4,10 @@ import { Checkbox, Radio } from "@material-tailwind/react";
 import axios from "axios";
 import { Prices } from "../components/Prices";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/cart";
+import { toast } from "react-hot-toast";
 const HomePage = () => {
+  const [cart,setCart]= useCart()
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -169,7 +172,13 @@ const HomePage = () => {
                   <p className="card-text font-bold text-lg">$ {p.price}</p>
                   
                   <div className="text-center">
-                  <button className="bg-gray-500 hover:bg-gray-700 text-white  py-1 rounded-md text-sm px-2 mt-2">
+                  <button onClick={
+                    (event)=>{
+                      event.preventDefault();
+                      setCart([...cart,p])
+                      toast.success("Item added to cart")
+                    }
+                  } className="bg-gray-500 hover:bg-gray-700 text-white  py-1 rounded-md text-sm px-2 mt-2">
                     ADD TO CART
                   </button>
                   </div>
