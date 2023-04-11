@@ -29,23 +29,29 @@ const SearchInput = () => {
 
   return (
     <div className="flex items-center  ">
-      <form className="flex gap-3 w-48" role="search" onSubmit={handleSubmit}>
-        <Input
-          size="lg"
-          label="Search"
-          name="Search"
-          value={values.keyword}
+      
+      <div className="relative flex max-w-[24rem]">
+      <Input
+        type="text"
+        label="search products"
+        value={values.keyword}
           fullWidth
           onChange={(e) => setValues({ ...values, keyword: e.target.value })}
           required
-        />
-        <Button
-          className="bg-blue-600 text-white font-bold py-2 px-4 rounded"
-          type="submit"
-        >
-          search
-        </Button>
-      </form>
+        className="pr-20"
+        containerProps={{
+          className: "min-w-0",
+        }}
+      />
+      <Button
+        size="sm"
+        color={values ? "blue" : "blue-gray"}
+        disabled={!values}
+        className="!absolute right-1 top-1 rounded"
+      >
+        search
+      </Button>
+    </div>
     </div>
   );
 };

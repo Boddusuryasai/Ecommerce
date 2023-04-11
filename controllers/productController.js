@@ -194,7 +194,7 @@ export const productFiltersController = async (req, res) => {
     let args = {};
     if (checked.length > 0) args.category = checked;
     if (radio.length) args.price = { $gte: Number(radio[0]), $lte: Number(radio[1]) };
-    const products = await productModel.find(args);
+    const products = await productModel.find(args).select("-photo");
   
     res.status(200).send({
       success: true,
@@ -338,14 +338,12 @@ export const checkout =async (req,res)=>{
     currency: "INR",
     receipt: "order_rcptid_11"
   };
-  console.log(options);
   instance.orders.create(options,async function(err, result) {
     const order = await new orderModel({
       products: cart,
       payment: result,
       buyer: req.user._id,
     }).save();
-    console.log(order.payment)
     res.status(200).send({success:true,order})
   });
  

@@ -14,7 +14,7 @@ import Layout from "../../components/Layout/Layout";
 import toast from 'react-hot-toast';
   import 'react-toastify/dist/ReactToastify.css';
 
-export default function createProduct() {
+export default function CreateProduct() {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

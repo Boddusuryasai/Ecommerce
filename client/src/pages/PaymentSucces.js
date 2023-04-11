@@ -10,6 +10,7 @@ const PaymentSuccess = () => {
 
     useEffect(()=>{
           setCart([])
+          localStorage.removeItem("cart")
     },[])
     return (
         <Layout>

@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
-import UserMenu from "../../components/Layout/UserMenu";
-import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
+import toast from "react-hot-toast";
+import AdminMenu from "../../components/Layout/AdminMenu";
+import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
+import { Select } from "@material-tailwind/react";
 
-const Orders = () => {
+const { Option } = Select;
+
+const AdminOrders = () => {
+  const [status, setStatus] = useState([
+    "Not Process",
+    "Processing",
+    "Shipped",
+    "deliverd",
+    "cancel",
+  ]);
+  const [changeStatus, setCHangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();
   const getOrders = async () => {
     try {
-      const { data } = await axios.get("/api/v1/auth/orders");
+      const { data } = await axios.get("/api/v1/auth/all-orders");
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -20,8 +32,21 @@ const Orders = () => {
   useEffect(() => {
     if (auth?.token) getOrders();
   }, [auth?.token]);
+
+  const handleChange = async (orderId, value) => {
+    try {
+      const { data } = await axios.put(`/api/v1/auth/order-status/${orderId}`, {
+        status: value,
+      });
+      getOrders();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div className="flex justify-center items-center w-full">
+   
+    <div className="flex justify-center items-center w-3/4">
+        <div className="flex justify-center">
       <div className="grid grid-cols-12">
         <div className="col-span-12 lg:col-span-9">
           <h1 className="text-center text-3xl font-bold ">All Orders</h1>
@@ -42,7 +67,19 @@ const Orders = () => {
                   <tbody>
                     <tr>
                       <td className="border px-4 py-2">{i + 1}</td>
-                      <td className="border px-4 py-2">{o?.status}</td>
+                      <td className="border px-4 py-2">
+                      <select
+                  className="border rounded py-2 px-3 w-full"
+                  onChange={(e) => handleChange(o._id, e.target.value)}
+                  defaultValue={o.status}
+                >
+                  {status.map((s, i) => (
+                    <option key={i} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+                </td>
                       <td className="border px-4 py-2">{o?.buyer?.name}</td>
                       <td className="border px-4 py-2">{moment(o?.createAt).fromNow()}</td>
                       <td className="border px-4 py-2">{o?.payment.success ? "Success" : "Failed"}</td>
@@ -73,8 +110,11 @@ const Orders = () => {
           })}
         </div>
       </div>
+      </div>
    </div>
-  )
-        }
+  
+   
+  );
+};
 
-export default Orders
+export default AdminOrders;

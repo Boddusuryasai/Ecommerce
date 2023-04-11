@@ -4,6 +4,7 @@ import { useAuth } from "../../context/auth";
 import { useCart } from "../../context/cart";
 import SearchInput from "../Form/SearchInput";
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 import {
   Menu,
   MenuHandler,
@@ -21,13 +22,14 @@ const Header = () => {
     localStorage.removeItem("auth");
   };
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 border mb-1 shadow-sm">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <NavLink to="/" className="flex items-center">
-          <span className="self-center text-2xl font-extrabold whitespace-nowrap text-[#2196F3]">
+    <nav className="bg-white border-gray-200  border mb-1 shadow-sm">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-center sm:justify-between mx-2 md:mx-auto p-4">
+        <Link to="/" >
+          <span className="self-center text-2xl font-extrabold  text-[#2196F3]">
             ShopHunt
           </span>
-        </NavLink>
+        </Link>
+        <div></div>
         <SearchInput />
         <button
           data-collapse-toggle="navbar-dropdown"
@@ -62,6 +64,7 @@ const Header = () => {
                 Home
               </NavLink>
             </li>
+            <li>
             <Menu>
               <MenuHandler>
                 <div className=" text-blue-400 font-semibold py-2 pl-3 pr-4 cursor-pointer">
@@ -76,17 +79,20 @@ const Header = () => {
                 ))}
               </MenuList>
             </Menu>
+            </li>
             <li>
             <Link
-                to={`/cart`}
-                type="button"
-                class="mb-2 flex  py-2 pl-3 pr-4 text-blue-400 font-semibold  rounded bg-primary  text-xs  uppercase leading-normal  shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                to={`/cart`} 
               >
-                Cart
-                <span class="ml-2 inline-block whitespace-nowrap rounded-[0.27rem] bg-danger-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-danger-700">
+              <div className="relative">
+              <FaShoppingCart className="text-2xl" />
+              {cart?.length > 0 && (
+                <span className="absolute -top-1 -right-2 bg-blue-400 text-xs w-5 h-5 flex justify-center items-center animate-bounce rounded-full text-white">
                   {cart?.length}
                 </span>
-              </Link>
+              )}
+            </div>
+            </Link>
             </li>
             {!auth.user ? (
               <>
@@ -110,29 +116,30 @@ const Header = () => {
                 </li>
               </>
             ) : (
-              <>
-                <li>
-                  <NavLink
+              <li>
+            <Menu>
+              <MenuHandler>
+                <div className=" bg-gray-300 rounded-full font-semibold w-8 h-8 cursor-pointer">
+                
+                </div>
+              </MenuHandler>
+              <MenuList>
+              <Link
                     to={`/dashboard/${
                       auth?.user.role === 1 ? "admin" : "user"
-                    }`}
-                    className="block py-2 pl-3 pr-4  text-blue-400 font-semibold"
-                    aria-current="page"
-                  >
-                    Dashboard
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/login"
-                    className="block py-2 pl-3 pr-4 text-blue-400 font-semibold"
-                    aria-current="page"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </NavLink>
-                </li>
-              </>
+                    }`}>
+                   
+                    <MenuItem>Dashboard</MenuItem>
+                    </Link>
+                    <Link
+                    to="/login">
+                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Link>
+                    
+              </MenuList>
+            </Menu>
+                
+              </li>
             )}
           </ul>
         </div>
