@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSearch } from "../../context/search";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,6 @@ import {
 const SearchInput = () => {
   const [values, setValues] = useSearch();
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -35,7 +34,6 @@ const SearchInput = () => {
         type="text"
         label="search products"
         value={values.keyword}
-          fullWidth
           onChange={(e) => setValues({ ...values, keyword: e.target.value })}
           required
         className="pr-20"
@@ -48,6 +46,7 @@ const SearchInput = () => {
         color={values ? "blue" : "blue-gray"}
         disabled={!values}
         className="!absolute right-1 top-1 rounded"
+        onClick={handleSubmit}
       >
         search
       </Button>

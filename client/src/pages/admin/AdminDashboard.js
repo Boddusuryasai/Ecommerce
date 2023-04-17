@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   return (
     <Layout>
       <div >
-        <div className="flex flex-col md:flex-row gap-2">
+        <div className="flex flex-col  md:flex-row   gap-2">
           <div className="w-full md:w-1/4">
             <AdminMenu />
           </div>
