@@ -34,6 +34,10 @@ const ProductDetails = () => {
                     (event)=>{
                       event.preventDefault();
                       setCart([...cart,product])
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, product])
+                      );
                       toast.success("Item added to cart")
                     }
                   }
