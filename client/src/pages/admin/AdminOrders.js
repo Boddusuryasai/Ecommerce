@@ -23,6 +23,7 @@ const AdminOrders = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get("/api/v1/auth/all-orders");
+      console.log(data);
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -44,76 +45,113 @@ const AdminOrders = () => {
     }
   };
   return (
-   
-    <div className="flex justify-center items-center w-3/4">
-        <div className="flex justify-center">
-      <div className="grid grid-cols-12">
-        <div className="col-span-12 lg:col-span-9">
-          <h1 className="text-center text-3xl font-bold ">All Orders</h1>
-          {orders?.map((o, i) => {
-            return (
-              <div className="border shadow rounded-lg" key={o._id}>
-                <table className="table-auto w-full">
-                  <thead>
+
+    <>
+      <section className="w-3/4 px-4 mx-auto py-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-medium text-gray-800 dark:text-white">
+              All Orders
+            </h2>
+            
+          </div>
+          
+        </div>
+        <div className="flex flex-col mt-6">
+          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+              <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                  <thead className="bg-gray-50 dark:bg-gray-800">
                     <tr>
-                      <th className="px-4 py-2">#</th>
-                      <th className="px-4 py-2">Status</th>
-                      <th className="px-4 py-2">Buyer</th>
-                      <th className="px-4 py-2">Date</th>
-                      <th className="px-4 py-2">Payment</th>
-                      <th className="px-4 py-2">Quantity</th>
+                      <th
+                        scope="col"
+                        className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        <span>Buyer</span>
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        Payment
+                      </th>
+
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        Status
+                      </th>
+
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        Date
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        Quantity
+                      </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border px-4 py-2">{i + 1}</td>
-                      <td className="border px-4 py-2">
-                      <select
-                  className="border rounded py-2 px-3 w-full"
-                  onChange={(e) => handleChange(o._id, e.target.value)}
-                  defaultValue={o.status}
-                >
-                  {status.map((s, i) => (
-                    <option key={i} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-                </td>
-                      <td className="border px-4 py-2">{o?.buyer?.name}</td>
-                      <td className="border px-4 py-2">{moment(o?.createAt).fromNow()}</td>
-                      <td className="border px-4 py-2">{o?.payment.success ? "Success" : "Failed"}</td>
-                      <td className="border px-4 py-2">{o?.products?.length}</td>
-                    </tr>
+                  <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                    {orders?.map((person) => (
+                      <tr key={person.name}>
+                        <td className="py-4 px-4 whitespace-nowrap">
+                          <div className="flex items-center">
+
+                            <div className="text-sm font-medium text-gray-900 dark:text-white">
+                              {person?.buyer?.name}
+                            </div>
+
+
+                          </div>
+                        </td>
+                        <td className="px-12 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-900 dark:text-white">
+                            {person?.payment.success ? "Success" : "Failed"}
+                          </div>
+
+                        </td>
+                        <td className="px-4 py-4 whitespace-nowrap">
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            <select
+                              className="border rounded py-1 px-3 w-full min-w-[100px]"
+                              onChange={(e) => handleChange(person._id, e.target.value)}
+                              defaultValue={person.status}
+                            >
+                              {status.map((s, i) => (
+                                <option key={i} value={s}>
+                                  {s}
+                                </option>
+                              ))}
+                            </select>
+                          </span>
+                        </td>
+                        <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                          {moment(person?.createAt).fromNow()}
+                        </td>
+                        <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                          {person?.products?.length}
+                        </td>
+
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
-                <div className="container mx-auto px-4">
-                  {o?.products?.map((p, i) => (
-                    <div className="flex flex-wrap mb-2 p-3 card rounded-lg" key={p._id}>
-                      <div className="w-full md:w-4/12">
-                        <img
-                          src={`/api/v1/product/product-photo/${p._id}`}
-                          className="card-img-top object-cover object-center rounded-lg h-56 w-full"
-                          alt={p.name}
-                        />
-                      </div>
-                      <div className="w-full md:w-8/12 px-4">
-                        <p className="text-lg font-bold mb-2">{p.name}</p>
-                        <p className="text-sm mb-2">{p.description.substring(0, 30)}</p>
-                        <p className="text-xl font-bold mb-2">Price : {p.price}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
-   </div>
-  
-   
+
+      </section>
+    </>
+
+
   );
 };
 

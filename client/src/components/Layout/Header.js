@@ -35,7 +35,7 @@ const Navbar = () => {
     <nav className="border shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center ">
+          <div className="flex items-center w-full justify-between ">
             <div className="flex-shrink-0">
               <NavLink to="/">
                 <span className="self-center text-3xl  font-bold  text-[#2196F3]">
@@ -44,7 +44,7 @@ const Navbar = () => {
               </NavLink>
             </div>
             <div className="hidden lg:block">
-              <div className="ml-10 flex items-center justify-between w-full space-x-4">
+              <div className="flex items-center justify-between w-full space-x-4">
                 {/* Current: "-900 text-gray-400", Default: "text-gray-300 hover:-700 hover:text-gray-400" */}
                 <SearchInput />
                 <NavLink
@@ -53,7 +53,6 @@ const Navbar = () => {
                 >
                   Dashboard
                 </NavLink>
-
                 <div>
                   <Menu>
                     <MenuHandler>
@@ -70,8 +69,6 @@ const Navbar = () => {
                     </MenuList>
                   </Menu>
                 </div>
-
-
                 {!auth.user ? (
                   <>
                     <NavLink
@@ -81,7 +78,6 @@ const Navbar = () => {
                     >
                       register
                     </NavLink>
-
                     <NavLink
                       to="/login"
                       className="-900 text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
@@ -100,6 +96,7 @@ const Navbar = () => {
                     Logout
                   </NavLink>
                 )}
+                <div>
                 <NavLink to={`/cart`}>
                   <div className="relative">
                     <FaShoppingCart className="text-2xl text-gray-500" />
@@ -110,6 +107,7 @@ const Navbar = () => {
                     )}
                   </div>
                 </NavLink>
+                </div>
               </div>
             </div>
           </div>
