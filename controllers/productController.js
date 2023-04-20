@@ -370,8 +370,8 @@ export const paymentVerification = async (req, res) => {
     if (!order) {
       return res.status(500).send("Error updating payment status");
     }
-    res.redirect(
-      `https://shop-hunt.netlify.app/paymentsuccess?reference=${razorpay_payment_id}`
+    
+    res.redirect(`https://shop-hunt.netlify.app/paymentsuccess?reference=${razorpay_payment_id}`
     );
 
   } else {
