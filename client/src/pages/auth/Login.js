@@ -53,7 +53,7 @@ import { useAuth } from "../../context/auth";
         };
     return (
         <Layout>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center my-2">
         <Card color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Login

@@ -118,7 +118,7 @@ const CartPage = () => {
                         ))}
                     </ul>
                 </div>
-                <div className="border-t border-gray-200  mt-4 py-6  ">
+                {cart?.length>0?<div className="border-t border-gray-200  mt-4 py-6  ">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
                         <p>{totalPrice()}</p>
@@ -138,7 +138,8 @@ const CartPage = () => {
                         </Button>}
                         
                       </div>
-                      </div>
+                </div>:null}
+                
                    </div>
            
         </Layout>

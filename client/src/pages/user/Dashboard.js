@@ -9,9 +9,9 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto m-3 p-3">
-        <div className="flex">
-          <div className="w-1/4">
+      <div >
+      <div className="flex flex-col  md:flex-row  my-2  gap-2">
+          <div className="w-full md:w-1/4">
             <UserMenu />
           </div>
           

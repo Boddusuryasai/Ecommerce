@@ -137,7 +137,7 @@ export default function Register() {
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{" "}
               <Link
-                href="/login"
+                to="/login"
                 className="font-medium text-blue-500 transition-colors hover:text-blue-700"
               >
                 Login
