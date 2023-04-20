@@ -3,10 +3,11 @@ import { Input, Button } from "@material-tailwind/react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../constants";
+import useCategory from "../../components/hooks/useCategory";
 const CreateCategory = () => {
   const [category, setCategory] = React.useState("");
   const onChange = ({ target }) => setCategory(target.value);
-  const [allcategories, setAllcategories] = useState([]);
+  const { categories, getCategories } = useCategory()
   const [updatedName, setUpdatedName] = useState("");
   const [selected, setSelected] = useState(null);
   const handleSubmit = async (e) => {
@@ -17,7 +18,7 @@ const CreateCategory = () => {
       });
       if (data?.success) {
         toast.success(`${category} is created`);
-        getAllCategory();
+        getCategories();
       } else {
         toast.error(data.message);
       }
@@ -27,18 +28,6 @@ const CreateCategory = () => {
     }
   };
 
-  //get all categories
-  const getAllCategory = async () => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/category/get-category`);
-      if (data.success) {
-        setAllcategories(data.category);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something wwent wrong in getting catgeory");
-    }
-  };
   const handleEdit = (cat) => {
     setSelected(cat);
     setUpdatedName(cat.name);
@@ -54,7 +43,7 @@ const CreateCategory = () => {
         toast.success(`${updatedName} is updated`);
         setSelected(null);
         setUpdatedName("");
-        getAllCategory();
+        getCategories();
       } else {
         toast.error(data.message);
       }
@@ -64,9 +53,6 @@ const CreateCategory = () => {
     }
   };
 
-  useEffect(() => {
-    getAllCategory();
-  }, []);
 
   return (
     <div className="md:w-3/4">
@@ -104,14 +90,14 @@ const CreateCategory = () => {
             </tr>
           </thead>
           <tbody>
-            {allcategories && (allcategories.map((cat) => {
+            {categories && (categories?.map((cat) => {
               return (<tr key={cat._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 {selected?._id === cat._id ? (
                   <>
                     <td className="px-6 py-4">
                       <input
                         type="text"
-                        value={cat.name}
+                        value={updatedName} 
                         onChange={(e) => setUpdatedName(e.target.value)}
                         className="w-full"
                       />

@@ -19,5 +19,10 @@ export default function useCategory() {
     getCategories();
   }, []);
 
-  return categories;
+  useEffect(() => {
+    // Listen for changes in categories state
+    console.log('Categories updated:', categories);
+  }, [categories]);
+
+  return { categories, getCategories };
 }
