@@ -3,18 +3,18 @@ import { NavLink } from "react-router-dom";
 
 const UserMenu = () => {
   return (
-    <div className="text-center">
-      <div className="space-y-2">
-        <h4 className="font-bold">Dashboard</h4>
+    <div className="text-center border md:h-[75vh]">
+      <div className="p-4">
+        <h4 className="font-bold py-2 px-4 border-b-2 bg-blue-gray-50 text-gray-800">Dashboard</h4>
         <NavLink
           to="/dashboard/user/profile"
-          className="py-3 px-4 rounded-md bg-white text-gray-700 hover:bg-gray-100 hover:text-gray-900 block"
+          className="block py-2 px-4 border-b text-gray-800 hover:bg-gray-200"
         >
           Profile
         </NavLink>
         <NavLink
           to="/dashboard/user/orders"
-          className="py-3 px-4 rounded-md bg-white text-gray-700 hover:bg-gray-100 hover:text-gray-900 block"
+          className="block py-2 px-4 border-b text-gray-800 hover:bg-gray-200"
         >
           Orders
         </NavLink>

@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 const CreateCategory = () => {
   const [category, setCategory] = React.useState("");
   const onChange = ({ target }) => setCategory(target.value);
-  const [allcategories,setAllcategories] = useState([]);
+  const [allcategories, setAllcategories] = useState([]);
   const [updatedName, setUpdatedName] = useState("");
   const [selected, setSelected] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post("/api/v1/category/create-category", {
-        name:category,
+        name: category,
       });
       if (data?.success) {
         toast.success(`${category} is created`);
@@ -25,7 +25,7 @@ const CreateCategory = () => {
       toast.error("somthing went wrong in input form");
     }
   };
- 
+
   //get all categories
   const getAllCategory = async () => {
     try {
@@ -42,7 +42,7 @@ const CreateCategory = () => {
     setSelected(cat);
     setUpdatedName(cat.name);
   };
-  
+
   const handleUpdate = async (id) => {
     try {
       const { data } = await axios.put(
@@ -62,7 +62,7 @@ const CreateCategory = () => {
       toast.error("Something went wrong while updating category");
     }
   };
-  
+
   useEffect(() => {
     getAllCategory();
   }, []);
@@ -90,7 +90,6 @@ const CreateCategory = () => {
           Add
         </Button>
       </div>
-
       <div class="mt-6 relative flex w-full max-w-[45rem] overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -104,44 +103,44 @@ const CreateCategory = () => {
             </tr>
           </thead>
           <tbody>
-          {allcategories&& (allcategories.map((cat)=>{
-            return (<tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            {selected?._id === cat._id ? (
-              <>
-                <td className="px-6 py-4">
-                  <input
-                    type="text"
-                    value={cat.name}
-                    onChange={(e) => setUpdatedName(e.target.value)}
-                    className="w-full"
-                  />
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <button
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    onClick={() => handleUpdate(cat._id)}
-                  >
-                    Save
-                  </button>
-                </td>
-              </>
-            ) : (
-              <>
-                <td className="px-6 py-4">{cat.name}</td>
-                <td className="px-6 py-4 text-right">
-                  <button
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    onClick={() => handleEdit(cat)}
-                  >
-                    Edit
-                  </button>
-                </td>
-              </>
-            )}
-          </tr>
-          
-            )
-             }))}
+            {allcategories && (allcategories.map((cat) => {
+              return (<tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                {selected?._id === cat._id ? (
+                  <>
+                    <td className="px-6 py-4">
+                      <input
+                        type="text"
+                        value={cat.name}
+                        onChange={(e) => setUpdatedName(e.target.value)}
+                        className="w-full"
+                      />
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <button
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        onClick={() => handleUpdate(cat._id)}
+                      >
+                        Save
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td className="px-6 py-4">{cat.name}</td>
+                    <td className="px-6 py-4 text-right">
+                      <button
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        onClick={() => handleEdit(cat)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </>
+                )}
+              </tr>
+
+              )
+            }))}
           </tbody>
         </table>
       </div>

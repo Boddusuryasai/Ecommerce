@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Input,
@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Layout from "../../components/Layout/Layout";
 import toast from 'react-hot-toast';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CreateProduct() {
   const [categories, setCategories] = useState([]);
@@ -25,8 +25,8 @@ export default function CreateProduct() {
   const [photo, setPhoto] = useState("");
   const navigate = useNavigate()
 
-   //get all category
-   const getAllCategory = async () => {
+  //get all category
+  const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
       if (data?.success) {
@@ -40,35 +40,35 @@ export default function CreateProduct() {
   useEffect(() => {
     getAllCategory();
   }, []);
- //create product function
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const productData = new FormData();
-    productData.append("name", name);
-    productData.append("description", description);
-    productData.append("price", price);
-    productData.append("quantity", quantity);
-    productData.append("photo", photo);
-    productData.append("category", category);
-    productData.append("shipping", shipping);
-    const { data } =await  axios.post(
-      "/api/v1/product/create-product",
-      productData
-    );
-    if (data?.success) {
-      toast.success("Product Created Successfully");
-      navigate("/dashboard/admin/products");
-      
-    } else {
-      toast.error(data?.message);
+  //create product function
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const productData = new FormData();
+      productData.append("name", name);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("quantity", quantity);
+      productData.append("photo", photo);
+      productData.append("category", category);
+      productData.append("shipping", shipping);
+      const { data } = await axios.post(
+        "/api/v1/product/create-product",
+        productData
+      );
+      if (data?.success) {
+        toast.success("Product Created Successfully");
+        navigate("/dashboard/admin/products");
+
+      } else {
+        toast.error(data?.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong");
     }
-  } catch (error) {
-    console.log(error);
-    toast.error("something went wrong");
-  }
-};
-  
+  };
+
 
   return (
     <div className="md:w-3/4">
@@ -122,29 +122,29 @@ export default function CreateProduct() {
                 onChange={(e) => setPhoto(e.target.files[0])}
                 required
               />
-              <Select variant="outlined" label="Select category"  onChange={(value) => {
-                  setCategory(value);
-                }}>
-        {categories?.map((c) => (
+              <Select variant="outlined" label="Select category" onChange={(value) => {
+                setCategory(value);
+              }}>
+                {categories?.map((c) => (
                   <Option key={c._id} value={c._id}>
                     {c.name}
                   </Option>
                 ))}
-        
-      </Select>
-      <Select variant="outlined" label="Select Shipping"  onChange={(value) => {
-                  setShipping(value);
-                }}>
-       
-                  <Option  value="0">
-                    No
-                  </Option>
-                  <Option  value="1">
-                    Yes
-                  </Option>
-               
-        
-      </Select>
+
+              </Select>
+              <Select variant="outlined" label="Select Shipping" onChange={(value) => {
+                setShipping(value);
+              }}>
+
+                <Option value="0">
+                  No
+                </Option>
+                <Option value="1">
+                  Yes
+                </Option>
+
+
+              </Select>
             </div>
             <Button className="mt-3" fullWidth type="submit">
               Submit
@@ -152,7 +152,7 @@ export default function CreateProduct() {
           </form>
         </Card>
       </div>
-      </div>
-   
+    </div>
+
   );
 }

@@ -45,7 +45,6 @@ const AdminOrders = () => {
     }
   };
   return (
-
     <>
       <section className="w-3/4 px-4 mx-auto py-4">
         <div className="flex items-center justify-between">
@@ -53,9 +52,7 @@ const AdminOrders = () => {
             <h2 className="text-lg font-medium text-gray-800 dark:text-white">
               All Orders
             </h2>
-            
           </div>
-          
         </div>
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -103,25 +100,25 @@ const AdminOrders = () => {
                       <tr key={person.name}>
                         <td className="py-4 px-4 whitespace-nowrap">
                           <div className="flex items-center">
-
                             <div className="text-sm font-medium text-gray-900 dark:text-white">
                               {person?.buyer?.name}
                             </div>
-
-
                           </div>
                         </td>
                         <td className="px-12 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900 dark:text-white">
-                            {person?.payment.status==="created" ? "Failed" : "Sucess"}
+                            {person?.payment.status === "created"
+                              ? "Failed"
+                              : "Sucess"}
                           </div>
-
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                             <select
                               className="border rounded py-1 px-3 w-full min-w-[100px]"
-                              onChange={(e) => handleChange(person._id, e.target.value)}
+                              onChange={(e) =>
+                                handleChange(person._id, e.target.value)
+                              }
                               defaultValue={person.status}
                             >
                               {status.map((s, i) => (
@@ -138,7 +135,6 @@ const AdminOrders = () => {
                         <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                           {person?.products?.length}
                         </td>
-
                       </tr>
                     ))}
                   </tbody>
@@ -147,11 +143,8 @@ const AdminOrders = () => {
             </div>
           </div>
         </div>
-
       </section>
     </>
-
-
   );
 };
 
