@@ -4,10 +4,11 @@ import { useSearch } from "../context/search";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-hot-toast";
+import { BASE_URL } from "../constants";
 const Search = () => {
   const [values, setValues] = useSearch();
   const [cart, setCart] = useCart()
-  
+  console.log(values);
   return (
     <Layout>
       <div className="container">
@@ -26,7 +27,7 @@ const Search = () => {
                 key={p._id}>
                 <div className="h-[180px] bg-blue-gray-300">
                   <img
-                    src={`/api/v1/product/product-photo/${p._id}`}
+                    src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
                   />

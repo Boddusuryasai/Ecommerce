@@ -43,9 +43,9 @@ const CartPage = () => {
     const checkoutHandler = async () => {
 
        try {
-        const { data: { key } } = await axios.get("/api/v1/getkey")
+        const { data: { key } } = await axios.get(`${BASE_URL}/api/v1/getkey`)
    
-        const { data: { order } } = await axios.post("/api/v1/product/checkout", {
+        const { data: { order } } = await axios.post(`${BASE_URL}/api/v1/product/checkout`, {
             cart
         })
         var options = {
@@ -56,7 +56,7 @@ const CartPage = () => {
             "description": "Test Transaction",
             "image": "https://res.cloudinary.com/dybiiddob/image/upload/v1679133176/dmu60twd28ljdwb3szu7.jpg",
             "order_id": order.payment.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "callback_url": `http://localhost:4000/api/v1/product/paymentverification/${order._id}`,
+            "callback_url": `${BASE_URL}/api/v1/product/paymentverification/${order._id}`,
             "prefill": {
                 "name": auth?.user?.name,
                 "email": auth?.user?.email,

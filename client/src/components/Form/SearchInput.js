@@ -9,6 +9,7 @@ import {
   Button,
   
 } from "@material-tailwind/react";
+import { BASE_URL } from "../../constants";
 
 const SearchInput = () => {
   const [values, setValues] = useSearch();
@@ -17,7 +18,7 @@ const SearchInput = () => {
     e.preventDefault();
     try {
       const { data } = await axios.get(
-        `/api/v1/product/search/${values.keyword}`
+        `${BASE_URL}/api/v1/product/search/${values.keyword}`
       );
       setValues({ ...values, results: data });
       navigate("/search");
