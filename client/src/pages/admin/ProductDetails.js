@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 import { useCart } from "../../context/cart";
 import { toast } from "react-hot-toast";
+import { BASE_URL } from "../../constants";
 const ProductDetails = () => {
   const [cart, setCart] = useCart()
   const params = useParams();
@@ -15,7 +16,7 @@ const ProductDetails = () => {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/product/get-product/${params.slug}`
+        `${BASE_URL}/api/v1/product/get-product/${params.slug}`
       );
       setProduct(data?.product);
     } catch (error) {
@@ -50,7 +51,7 @@ const ProductDetails = () => {
           <div class="order-first ml-auto h-48 w-full bg-gray-700 sm:order-none sm:h-auto sm:w-1/2 lg:w-2/5">
             {product._id &&
 
-              <img class="h-full w-full object-cover" src={`/api/v1/product/product-photo/${product._id}`} loading="lazy" />
+              <img class="h-full w-full object-cover" src={`${BASE_URL}/api/v1/product/product-photo/${product._id}`} loading="lazy" />
             }
           </div>
         </div>

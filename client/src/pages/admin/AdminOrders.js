@@ -6,6 +6,7 @@ import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
 import { Select } from "@material-tailwind/react";
+import { BASE_URL } from "../../constants";
 
 const { Option } = Select;
 
@@ -22,7 +23,7 @@ const AdminOrders = () => {
   const [auth, setAuth] = useAuth();
   const getOrders = async () => {
     try {
-      const { data } = await axios.get("/api/v1/auth/all-orders");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/auth/all-orders`);
       console.log(data);
       setOrders(data);
     } catch (error) {

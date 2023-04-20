@@ -9,13 +9,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-
+import { BASE_URL } from "../../constants";
 export default function Example() {
   const [products, setProducts] = useState([]);
   //getall products
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-product");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/product/get-product`);
       setProducts(data.products);
     } catch (error) {
       console.log(error);
@@ -34,7 +34,7 @@ export default function Example() {
           <div className="w-full max-w-[280px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img
               className="p-4 rounded-t-lg"
-              src={`/api/v1/product/product-photo/${p._id}`}
+              src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
               alt="product image"
             />
 

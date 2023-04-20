@@ -6,6 +6,7 @@ import { Prices } from "../components/Prices";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-hot-toast";
+import { BASE_URL } from "../constants";
 const HomePage = () => {
   const [cart, setCart] = useCart()
   const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ const HomePage = () => {
   //get all categories
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -37,7 +38,7 @@ const HomePage = () => {
     try {
       if (!checked.length || !radio.length) {
         setLoading(true);
-        const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+        const { data } = await axios.get(`${BASE_URL}/api/v1/product/product-list/${page}`);
         setLoading(false);
         setProducts(data.products);
       }
@@ -50,7 +51,7 @@ const HomePage = () => {
   //getTotal count
   const getTotal = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/product-count");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/product/product-count`);
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -66,7 +67,7 @@ const HomePage = () => {
     try {
 
       setLoading(true);
-      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      const { data } = await axios.get(`${BASE_URL}/api/v1/product/product-list/${page}`);
       setLoading(false);
       setProducts([...products, ...data?.products]);
 
@@ -97,7 +98,7 @@ const HomePage = () => {
   //get filterd product
   const filterProduct = async () => {
     try {
-      const { data } = await axios.post("/api/v1/product/product-filters", {
+      const { data } = await axios.post(`${BASE_URL}/api/v1/product/product-filters`, {
         checked,
         radio,
       });
@@ -178,7 +179,7 @@ const HomePage = () => {
                   key={p._id}>
                   <div className="h-[180px] bg-blue-gray-300">
                     <img
-                      src={`/api/v1/product/product-photo/${p._id}`}
+                      src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
                       className="card-img-top"
                       alt={p.name}
                     />

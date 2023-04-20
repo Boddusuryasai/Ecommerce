@@ -10,6 +10,7 @@ import {
   import toast from 'react-hot-toast';
 import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
+import { BASE_URL } from "../../constants";
   export default function Login() {
     const [formData, setFormData] = useState({
         email: "",
@@ -30,7 +31,7 @@ import { useAuth } from "../../context/auth";
         event.preventDefault();
         // Handle form submission
         try {
-            const res = await axios.post(`/api/v1/auth/login`, {
+            const res = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
               ...formData
             });
             if (res && res.data.success) {

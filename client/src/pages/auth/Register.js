@@ -11,7 +11,7 @@ import axios from "axios";
 import Layout from "../../components/Layout/Layout";
 import toast from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { BASE_URL } from "../../constants";
 export default function Register() {
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +35,7 @@ export default function Register() {
     event.preventDefault();
     // Handle form submission
     try {
-        const res = await axios.post(`/api/v1/auth/register`, {
+        const res = await axios.post(`${BASE_URL}/api/v1/auth/register`, {
           ...formData
         });
         if (res && res.data.success) {

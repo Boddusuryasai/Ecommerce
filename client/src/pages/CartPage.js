@@ -7,6 +7,7 @@ import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 import { useNavigate } from "react-router-dom";
 import { Button } from '@material-tailwind/react';
+import { BASE_URL } from '../constants';
 const CartPage = () => {
     const [auth, setAuth] = useAuth();
     const [cart, setCart] = useCart();
@@ -86,7 +87,7 @@ const CartPage = () => {
                             <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
-                                        src={`/api/v1/product/product-photo/${product._id}`}
+                                        src={`${BASE_URL}/api/v1/product/product-photo/${product._id}`}
                                         alt={"product.imageAlt"}
                                         className="h-full w-full object-cover object-center"
                                     />

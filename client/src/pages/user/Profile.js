@@ -9,6 +9,7 @@ import {
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { BASE_URL } from "../../constants"
 const Profile = () => {
   //context
   const [auth, setAuth] = useAuth();
@@ -32,14 +33,14 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("/api/v1/auth/profile", {
+      const { data } = await axios.put(`${BASE_URL}/api/v1/auth/profile`, {
         name,
         email,
         password,
         phone,
         address,
       });
-      if (data?.errro) {
+      if (data?.error) {
         toast.error(data?.error);
       } else {
         setAuth({ ...auth, user: data?.updatedUser });

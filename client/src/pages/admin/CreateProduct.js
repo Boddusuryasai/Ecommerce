@@ -13,6 +13,7 @@ import axios from "axios";
 import Layout from "../../components/Layout/Layout";
 import toast from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from "../../constants";
 
 export default function CreateProduct() {
   const [categories, setCategories] = useState([]);
@@ -28,7 +29,7 @@ export default function CreateProduct() {
   //get all category
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -53,7 +54,7 @@ export default function CreateProduct() {
       productData.append("category", category);
       productData.append("shipping", shipping);
       const { data } = await axios.post(
-        "/api/v1/product/create-product",
+        `${BASE_URL}/api/v1/product/create-product`,
         productData
       );
       if (data?.success) {

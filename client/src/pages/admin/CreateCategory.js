@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../../constants";
 const CreateCategory = () => {
   const [category, setCategory] = React.useState("");
   const onChange = ({ target }) => setCategory(target.value);
@@ -11,7 +12,7 @@ const CreateCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/v1/category/create-category", {
+      const { data } = await axios.post(`${BASE_URL}/api/v1/category/create-category`, {
         name: category,
       });
       if (data?.success) {
@@ -29,7 +30,7 @@ const CreateCategory = () => {
   //get all categories
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(`${BASE_URL}/api/v1/category/get-category`);
       if (data.success) {
         setAllcategories(data.category);
       }
@@ -46,7 +47,7 @@ const CreateCategory = () => {
   const handleUpdate = async (id) => {
     try {
       const { data } = await axios.put(
-        `/api/v1/category/update-category/${id}`,
+        `${BASE_URL}/api/v1/category/update-category/${id}`,
         { name: updatedName }
       );
       if (data?.success) {
@@ -104,7 +105,7 @@ const CreateCategory = () => {
           </thead>
           <tbody>
             {allcategories && (allcategories.map((cat) => {
-              return (<tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              return (<tr key={cat._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 {selected?._id === cat._id ? (
                   <>
                     <td className="px-6 py-4">
