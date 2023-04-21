@@ -36,7 +36,7 @@ const HomePage = () => {
   //get products
   const getAllProducts = async () => {
     try {
-      if (!checked.length || !radio.length) {
+      if (!checked.length && !radio.length) {
         setLoading(true);
         const { data } = await axios.get(`${BASE_URL}/api/v1/product/product-list/${page}`);
         setLoading(false);
@@ -88,7 +88,7 @@ const HomePage = () => {
     setChecked(all);
   };
   useEffect(() => {
-    if (!checked.length || !radio.length) getAllProducts();
+    if (!checked.length && !radio.length) getAllProducts();
   }, [checked.length, radio.length]);
 
   useEffect(() => {
