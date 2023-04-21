@@ -22,6 +22,6 @@ Shophunt is a full-stack e-commerce app built using the MERN (MongoDB, Express.j
 - JWT for authentication
 
 
-![LiveLink](https://shop-hunt.netlify.app/)
+[LiveLink](https://shop-hunt.netlify.app/)
 
 
