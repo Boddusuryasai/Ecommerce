@@ -7,53 +7,29 @@ import { Link } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "../constants";
+import useCategory from "../components/hooks/useCategory.js"
+import useProductCount from "../components/hooks/useProductCount.js"
 const HomePage = () => {
   const [cart, setCart] = useCart()
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
-  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   //get all categories
-  const getAllCategory = async () => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/category/get-category`);
-      if (data?.success) {
-        setCategories(data?.category);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getAllCategory();
-    getTotal();
-  }, []);
+  const {categories } = useCategory()
+  //getTotal count
+  const { total } = useProductCount();
   //get products
   const getAllProducts = async () => {
     try {
-      if (!checked.length && !radio.length) {
         setLoading(true);
         const { data } = await axios.get(`${BASE_URL}/api/v1/product/product-list/${page}`);
         setLoading(false);
-        setProducts(data.products);
-      }
+        setProducts(data.products);   
     } catch (error) {
       setLoading(false);
-      console.log(error);
-    }
-  };
-
-  //getTotal count
-  const getTotal = async () => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/product/product-count`);
-      setTotal(data?.total);
-    } catch (error) {
       console.log(error);
     }
   };
