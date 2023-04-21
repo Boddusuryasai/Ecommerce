@@ -5,7 +5,6 @@ import { BASE_URL } from "../../constants";
 export default function useCategory() {
   const [categories, setCategories] = useState([]);
 
-  //get cat
   const getCategories = async () => {
     try {
       const { data } = await axios.get(`${BASE_URL}/api/v1/category/get-category`);
@@ -21,7 +20,7 @@ export default function useCategory() {
 
   useEffect(() => {
     // Listen for changes in categories state
-    console.log('Categories updated:', categories);
+   // console.log('Categories updated:', categories);
   }, [categories]);
 
   return { categories, getCategories };
