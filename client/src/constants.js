@@ -1,1 +1,1 @@
-export const BASE_URL ="https://ecommerce-production-9175.up.railway.app"
+export const BASE_URL ="https://ecommerce-d6fh.onrender.com"
