@@ -21,6 +21,7 @@ export default function Register() {
     address: "",
     agreeTerms: false,
   });
+  const [isLoading,setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (event) => {
@@ -34,19 +35,23 @@ export default function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Handle form submission
+    setIsLoading(true)
     try {
         const res = await axios.post(`${BASE_URL}/api/v1/auth/register`, {
           ...formData
         });
         if (res && res.data.success) {
           toast.success(res.data && res.data.message);
+          setIsLoading(false)
           navigate("/login");
         } else {
           toast.error(res.data.message);
+          setIsLoading(false)
         }
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong");
+        setIsLoading(false)
       }
     };
   
@@ -131,7 +136,7 @@ export default function Register() {
               onChange={handleChange}
               required
             />
-            <Button className="mt-6" fullWidth type="submit">
+            <Button className="mt-6" fullWidth type="submit" disabled={isLoading}>
               Register
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">

@@ -16,6 +16,7 @@ import { BASE_URL } from "../../constants";
         email: "",
         password: "",
       });
+      const [isLoading,setIsLoading] = useState(false)
       const [auth, setAuth] = useAuth();
       const navigate = useNavigate()
     const location = useLocation()
@@ -30,6 +31,7 @@ import { BASE_URL } from "../../constants";
       const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle form submission
+        setIsLoading(true)
         try {
             const res = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
               ...formData
@@ -41,15 +43,19 @@ import { BASE_URL } from "../../constants";
                     token: res.data.token,
                     role:res.data.role
                   });
+                  
                   localStorage.setItem("auth", JSON.stringify(res.data));
               toast.success(res.data && res.data.message);
+              setIsLoading(false)
               navigate(location.state || "/");
             } else {
               toast.error(res.data.message);
+              setIsLoading(false)
             }
           } catch (error) {
             console.log(error);
             toast.error("Something went wrong");
+            setIsLoading(false)
           }
         };
     return (
@@ -88,7 +94,7 @@ import { BASE_URL } from "../../constants";
              
               
             </div>
-            <Button className="mt-6" fullWidth type="submit">
+            <Button className="mt-6" fullWidth type="submit" disabled={isLoading}>
               Login
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
