@@ -6,7 +6,7 @@ const Layout = (props) => {
   return (
     <div className="container mx-auto" >
         <Header/>
-        <main className='min-h-[75vh] '>
+        <main className='min-h-[75vh] mt-20'>
            <Toaster/>
         {props.children}
         </main>

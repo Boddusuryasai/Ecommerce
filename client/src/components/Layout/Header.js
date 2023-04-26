@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="border shadow-md">
+    <nav className="border shadow-md fixed w-full  z-10 top-0 left-0 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center w-full justify-between ">
@@ -49,14 +49,14 @@ const Navbar = () => {
                 <SearchInput />
                 <NavLink
                   to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}
-                  className="-900 text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                  className="-900 text-gray-600 px-3 py-2 rounded-md text-md font-medium"
                 >
                   Dashboard
                 </NavLink>
                 <div>
                   <Menu>
                     <MenuHandler>
-                      <div className="-900 cursor-pointer text-gray-400 px-3 py-2 rounded-md text-sm font-medium">
+                      <div className="-900 cursor-pointer text-gray-600 px-3 py-2 rounded-md text-md font-medium">
                         Categories
                       </div>
                     </MenuHandler>
@@ -73,14 +73,14 @@ const Navbar = () => {
                   <>
                     <NavLink
                       to="/register"
-                      className="-900 text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                      className="-900 text-gray-600 px-3 py-2 rounded-md text-md font-medium"
                       aria-current="page"
                     >
                       register
                     </NavLink>
                     <NavLink
                       to="/login"
-                      className="-900 text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                      className="-900 text-gray-600 px-3 py-2 rounded-md text-md font-medium"
                       aria-current="page"
                     >
                       Login
@@ -89,7 +89,7 @@ const Navbar = () => {
                 ) : (
                   <NavLink
                     to="/login"
-                    className="-900 text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                    className="-900 text-gray-600 px-3 py-2 rounded-md text-md font-medium"
                     onClick={handleLogout}
                   >
                     {" "}
