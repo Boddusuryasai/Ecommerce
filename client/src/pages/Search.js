@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "./../components/Layout/Layout";
 import { useSearch } from "../context/search";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/cart";
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../redux/cartSlice";
 const Search = () => {
   const [values, setValues] = useSearch();
-  const [cart, setCart] = useCart()
-  console.log(values);
+  const cart = useSelector(store=>store.cart.cartItems)
+  const dispatch = useDispatch();
+  const handleaddItem = (item) => {
+    dispatch(addItem(item));
+  };
   return (
     <Layout>
       <div className="container">
@@ -98,11 +102,7 @@ const Search = () => {
                     <button onClick={
                       (event) => {
                         event.preventDefault();
-                        setCart([...cart, p]);
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, p])
-                        );
+                        handleaddItem(p)
                         toast.success("Item added to cart")
                       }
                     } className="bg-gray-500 hover:bg-gray-700 text-white  py-1 rounded-md text-sm px-2 mt-2">

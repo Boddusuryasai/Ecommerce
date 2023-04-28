@@ -4,15 +4,12 @@ import { Checkbox, Radio } from "@material-tailwind/react";
 import axios from "axios";
 import { Prices } from "../components/Prices";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/cart";
-import { toast } from "react-hot-toast";
 import { BASE_URL } from "../constants";
 import useCategory from "../components/hooks/useCategory.js"
 import useProductCount from "../components/hooks/useProductCount.js"
 import ProductCard from "./ProductCard";
 
 const HomePage = () => {
-  const [cart, setCart] = useCart()
   const [products, setProducts] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);

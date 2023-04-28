@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
 import Layout from '../components/Layout/Layout'
 import { useSearchParams } from 'react-router-dom'
-import { useCart } from '../context/cart'
+import { clearCart } from '../redux/cartSlice'
+import { useDispatch } from 'react-redux'
 const PaymentSuccess = () => {
-
     const seachQuery = useSearchParams()[0]
-     const [cart,setCart] = useCart()
     const referenceNum = seachQuery.get("reference")
-
+    const dispatch = useDispatch()
     useEffect(()=>{
-          setCart([])
-          localStorage.removeItem("cart")
+        dispatch(clearCart())
     },[])
     return (
         <Layout>

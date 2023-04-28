@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import UserMenu from "../../components/Layout/UserMenu";
-import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
-import moment from "moment";
 import { BASE_URL } from "../../constants";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const getOrders = async () => {
     try {
       const { data } = await axios.get(`${BASE_URL}/api/v1/auth/orders`);
@@ -62,23 +59,23 @@ const Orders = () => {
                   <div className="flex-shrink-0">
                     <img
                       className="w-20 h-20 border border-gray-200 rounded-lg object-contain"
-                      src={`${BASE_URL}/api/v1/product/product-photo/${product._id}`}
-                      alt={product.name}
+                      src={`${BASE_URL}/api/v1/product/product-photo/${product.productId._id}`}
+                      alt={product.productId.name}
                     />
                   </div>
 
                   <div className="flex flex-col justify-between ml-5">
                     <div className="flex-1">
                       <p className="text-sm font-bold text-gray-900 dark:text-white">
-                        {product.name} <span>.. {product.price} $</span>
+                        {product.productId.name} <span>.. {product.productId.price} $</span>
                       </p>
                       <p className="mt-1.5 text-sm font-medium text-gray-500 dark:text-gray-300">
-                        {product.description.substring(0, 30)}
+                        {product.productId.description?.substring(0, 30)}
                       </p>
                     </div>
 
                     <p className="mt-4 text-sm font-medium text-gray-500 dark:text-gray-300">
-                      x {o?.products?.length}
+                      x {product.count}
                     </p>
                   </div>
                 </div>

@@ -1,9 +1,13 @@
 import React from 'react'
 import { BASE_URL } from '../constants';
-import { useCart } from '../context/cart';
 import { toast } from "react-hot-toast";
+import {useDispatch } from 'react-redux';
+import { addItem } from '../redux/cartSlice';
 const ProductCard = ({product}) => {
-  const [cart, setCart] = useCart()
+  const dispatch = useDispatch() 
+  const handleAdd=(item)=>{
+    dispatch(addItem(item))
+  }
   return (
     <div className="card m-2 p-2 border-2 rounded-md shadow-lg" style={{ width: "18rem" }}
                   key={product._id}>
@@ -80,11 +84,7 @@ const ProductCard = ({product}) => {
                       <button onClick={
                         (event) => {
                           event.preventDefault();
-                          setCart([...cart, product]);
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify([...cart, product])
-                          );
+                          handleAdd(product)
                           toast.success("Item added to cart")
                         }
                       } className="bg-gray-500 hover:bg-gray-700 text-white  py-1 rounded-md text-sm px-2 mt-2">

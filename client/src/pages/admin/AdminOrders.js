@@ -1,30 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
-import AdminMenu from "../../components/Layout/AdminMenu";
-import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
-import { Select } from "@material-tailwind/react";
 import { BASE_URL } from "../../constants";
-
-const { Option } = Select;
-
+const status = ["Not Process", "Processing", "Shipped", "deliverd", "cancel"];
 const AdminOrders = () => {
-  const [status, setStatus] = useState([
-    "Not Process",
-    "Processing",
-    "Shipped",
-    "deliverd",
-    "cancel",
-  ]);
-  const [changeStatus, setCHangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const getOrders = async () => {
     try {
       const { data } = await axios.get(`${BASE_URL}/api/v1/auth/all-orders`);
-      console.log(data);
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -37,7 +22,7 @@ const AdminOrders = () => {
 
   const handleChange = async (orderId, value) => {
     try {
-      const { data } = await axios.put(`/api/v1/auth/order-status/${orderId}`, {
+      await axios.put(`/api/v1/auth/order-status/${orderId}`, {
         status: value,
       });
       getOrders();
@@ -97,18 +82,18 @@ const AdminOrders = () => {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                    {orders?.map((person) => (
-                      <tr key={person.name}>
+                    {orders?.map((product) => (
+                      <tr key={product.name}>
                         <td className="py-4 px-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="text-sm font-medium text-gray-900 dark:text-white">
-                              {person?.buyer?.name}
+                              {product?.buyer?.name}
                             </div>
                           </div>
                         </td>
                         <td className="px-12 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900 dark:text-white">
-                            {person?.payment.status === "created"
+                            {product?.payment.status === "created"
                               ? "Failed"
                               : "Sucess"}
                           </div>
@@ -118,9 +103,9 @@ const AdminOrders = () => {
                             <select
                               className="border rounded py-1 px-3 w-full min-w-[100px]"
                               onChange={(e) =>
-                                handleChange(person._id, e.target.value)
+                                handleChange(product._id, e.target.value)
                               }
-                              defaultValue={person.status}
+                              defaultValue={product.status}
                             >
                               {status.map((s, i) => (
                                 <option key={i} value={s}>
@@ -131,10 +116,10 @@ const AdminOrders = () => {
                           </span>
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          {moment(person?.createAt).fromNow()}
+                          {moment(product?.createdAt).fromNow()}
                         </td>
                         <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                          {person?.products?.length}
+                          {product?.products?.length}
                         </td>
                       </tr>
                     ))}

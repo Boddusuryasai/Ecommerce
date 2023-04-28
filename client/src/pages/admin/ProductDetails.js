@@ -3,11 +3,15 @@ import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
-import { useCart } from "../../context/cart";
 import { toast } from "react-hot-toast";
 import { BASE_URL } from "../../constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/cartSlice";
 const ProductDetails = () => {
-  const [cart, setCart] = useCart()
+  const dispatch = useDispatch() 
+  const handleAdd=(item)=>{
+    dispatch(addItem(item))
+  }
   const params = useParams();
   const [product, setProduct] = useState({});
   useEffect(() => {
@@ -34,11 +38,7 @@ const ProductDetails = () => {
             <Button onClick={
               (event) => {
                 event.preventDefault();
-                setCart([...cart, product])
-                localStorage.setItem(
-                  "cart",
-                  JSON.stringify([...cart, product])
-                );
+                handleAdd(product)
                 toast.success("Item added to cart")
               }
             }

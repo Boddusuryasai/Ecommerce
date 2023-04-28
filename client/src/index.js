@@ -6,16 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/auth';
 import { SearchProvider } from './context/search';
-import { CartProvider } from './context/cart';
+import { store } from './redux/store';
+import { Provider } from 'react-redux'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
   <SearchProvider>
-    <CartProvider>
+    <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    </CartProvider>
+    </Provider>
   </SearchProvider>
 </AuthProvider>
   

@@ -321,17 +321,22 @@ export const productCategoryController = async (req, res) => {
 //checkkout controller razorpay
 export const checkout =async (req,res)=>{
   const {  cart } = req.body;
- 
+    
     let total = 0;
     // Fetch the product details from the database and check if the price matches
   for (const item of cart) {
     const product = await productModel.findById(item._id);
-    if (product.price !== item.price) {
+    if (product.price*item.count !== item.price*item.count) {
       return res.status(400).send({ error: "Product price does not match" });
     }
-    total += item.price;
+    total += item.price*item.count;
   }
    
+const products = cart.map(item => ({
+  productId: item._id, 
+  count: item.count,
+  price: item.count*item.price
+}));
    
   var options = {
     amount: Number(total *100),  // amount in the smallest currency unit
@@ -340,10 +345,11 @@ export const checkout =async (req,res)=>{
   };
   instance.orders.create(options,async function(err, result) {
     const order = await new orderModel({
-      products: cart,
+      products: products,
       payment: result,
       buyer: req.user._id,
     }).save();
+    console.log("order" , order)
     res.status(200).send({success:true,order})
   });
  

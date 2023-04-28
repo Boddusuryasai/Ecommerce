@@ -1,36 +1,27 @@
 import { useState } from "react";
-
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
-import { useCart } from "../../context/cart";
+import { useSelector } from "react-redux";
 import SearchInput from "../Form/SearchInput";
-import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import {AiOutlineClose,AiOutlineMenu} from "react-icons/ai"
 import {
   Menu,
   MenuHandler,
   MenuList,
-  MenuItem,
-  Button,
+  MenuItem
 } from "@material-tailwind/react";
 import useCategory from "../hooks/useCategory";
 const Navbar = () => {
   const [auth, setAuth] = useAuth();
-  const [cart] = useCart();
+  const cart = useSelector((store) => store.cart.cartItems);
   const {categories} = useCategory();
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: null });
     localStorage.removeItem("auth");
   };
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
   return (
     <nav className="border shadow-md fixed w-full  z-10 top-0 left-0 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
